@@ -4,7 +4,7 @@ import { HashRouter, Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
-import "../style/bootstrap-sketchy.css";
+import "../js/style/bootstrap-sketchy.css";
 
 export default function App() {
 

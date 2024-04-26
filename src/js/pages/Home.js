@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Container, Form } from "react-bootstrap";
-import AudioButton from '../components/audioButton';
 const { ipcRenderer } = require('electron');
 
 const Home = () => {
@@ -40,7 +39,7 @@ const Home = () => {
                 audioElement.currentTime = 0; // Reset the playback to the beginning
                 audioElement.play(); // Start playing the audio
             }
-        } 
+        }
         else {
             setCurrentFile(fileName);
         }
@@ -80,6 +79,7 @@ const Home = () => {
                             flexDirection: "column",
                             justifyContent: "center",
                             alignItems: "center",
+                            textAlign: "center",
                             height: "100%",
                             opacity: '1'
                         }}
@@ -97,17 +97,28 @@ const Home = () => {
 
             <Card style={{ margin: "0%", width: "100%", backgroundColor: "var(--bs-dark)" }}>
                 <Card.Header style={{ backgroundColor: "var(--bs-primary)", color: "var(--bs-light)", opacity: '0.8', justifyContent: "center", display: "flex", flexDirection: "row" }}>
-                    <Form.Control
-                        type="text"
-                        placeholder="Search"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{ width: "75%", margin: "auto", opacity: '0.8' }}
-                    />
+                    <div style={{ width: "75%", display: "flex", alignItems: "center", margin: "auto", opacity: '0.8' }}>
+                        <Form.Control
+                            type="text"
+                            placeholder="Search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ flexGrow: 1 }}
+                        />
+                        {searchTerm && (
+                            <Button
+                                variant="light"
+                                onClick={() => setSearchTerm('')}
+                                style={{ marginLeft: "10px" }}
+                            >
+                                x
+                            </Button>
+                        )}
+                    </div>
 
-                    <Button variant="light" onClick={playRandom} style={{ margin: "auto", opacity: '0.8' }}>Random</Button>
-
+                    <Button variant="light" onClick={playRandom} style={{ width: "128px", margin: "auto", opacity: '0.8' }}>Random</Button>
                 </Card.Header>
+
                 <Card.Body
                     style={{
                         paddingBottom: "64px",
@@ -115,6 +126,9 @@ const Home = () => {
                         backgroundImage: `url(public/img/dracula.png)`,
                     }}
                 >
+
+                    <div style={{width: "100%", margin: "auto", textAlign: "center", color: "white"}}>{filteredFiles.length} Sounds</div>
+
                     <Container
                         style={{
                             display: "flex",
